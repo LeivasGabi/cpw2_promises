@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <title>Baby Yoda Infinito</title>
+</head>
+<style>
+    h1 {
+        text-decoration-color: aqua;
+    }
+
+    img {
+        width: 50%;
+        height: 50%;
+        margin: 40px;
+        padding: auto;
+        text-align: center;
+        box-shadow: black 0px 0px 20px;
+    }
+
+    div {
+        text-align: center;
+    }
+
+    body {
+        background-image: url("https://w0.peakpx.com/wallpaper/241/159/HD-wallpaper-black-stars-black-aesthetic.jpg");
+    }
+</style>
+
+<body>
+    <div id="container"></div>
+</body>
+<script>
+
+    function ajax(method, url) {
+        return new Promise(
+            function (resolve, reject) {
+
+                let xhr = new XMLHttpRequest();
+
+                xhr.open(method, url, true);
+
+                xhr.onreadystatechange = () => {
+                    if (xhr.status == "200" && xhr.readyState == "4") {
+                        resolve(xhr.responseText);
+                    }
+                };
+
+                xhr.onerror = () => {
+                    reject("Oops")
+                };
+
+                xhr.send();
+
+            });
+
+        let promessa = ajax("GET", "data.json");
+
+        promessa
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (response) {
+                console.log(response);
+            }
+            );
+
+    }
+
+    function scrollInfinito() {
+
+        for (let i = 0; i < imagens.length; i++) {
+
+            const container = document.querySelector('div#container');
+            var randomImagens = Math.floor(Math.random() * (imagens.length));
+            const img = document.createElement('img');
+            img.src = imagens[randomImagens];
+            container.appendChild(img);
+        }
+    }
+    scrollInfinito()
+
+    window.addEventListener('scroll', () => {
+
+        if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+            scrollInfinito();
+        }
+    })
+
+</script>
+
+</html>
